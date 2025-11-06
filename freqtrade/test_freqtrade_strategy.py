@@ -68,6 +68,20 @@ def test_strategy_import():
         print(f"✗ Failed to import EnhancedElliotWaveStrategy: {e}")
         return False
 
+    try:
+        from freqtrade.AdvancedElliotWaveStrategy import AdvancedElliotWaveStrategy
+        print("✓ AdvancedElliotWaveStrategy imported successfully")
+    except Exception as e:
+        print(f"✗ Failed to import AdvancedElliotWaveStrategy: {e}")
+        return False
+
+    try:
+        from freqtrade.wave_plotting_helper import WavePlottingHelper
+        print("✓ WavePlottingHelper imported successfully")
+    except Exception as e:
+        print(f"✗ Failed to import WavePlottingHelper: {e}")
+        return False
+
     print()
     return True
 
@@ -279,6 +293,109 @@ def test_enhanced_strategy():
         return False
 
 
+def test_wave_plotting_helper():
+    """Test WavePlottingHelper."""
+    print("=" * 70)
+    print("TEST 6: Wave Plotting Helper")
+    print("=" * 70)
+
+    try:
+        from freqtrade.wave_plotting_helper import WavePlottingHelper
+
+        helper = WavePlottingHelper()
+        print("✓ WavePlottingHelper instantiated")
+
+        # Test plot config generation
+        plot_config = helper.create_enhanced_plot_config(prefix='ew')
+        print(f"✓ Enhanced plot config created")
+
+        # Check main plot elements
+        if 'main_plot' in plot_config:
+            main_elements = len(plot_config['main_plot'])
+            print(f"✓ Main plot elements: {main_elements}")
+
+        # Check subplots
+        if 'subplots' in plot_config:
+            subplots = len(plot_config['subplots'])
+            print(f"✓ Subplots: {subplots}")
+
+        # Check specific plot elements exist
+        expected_elements = [
+            'ew_impulse_line',
+            'ew_correction_line',
+            'ew_upper_channel',
+            'ew_lower_channel',
+            'ew_w2_fib_618',
+            'ew_target_1',
+            'ew_invalidation'
+        ]
+
+        for element in expected_elements:
+            if element in plot_config['main_plot']:
+                print(f"  ✓ {element} configured")
+
+        print()
+        return True
+
+    except Exception as e:
+        print(f"✗ Wave plotting helper test failed: {e}")
+        import traceback
+        traceback.print_exc()
+        return False
+
+
+def test_advanced_strategy():
+    """Test AdvancedElliotWaveStrategy."""
+    print("=" * 70)
+    print("TEST 7: Advanced Strategy")
+    print("=" * 70)
+
+    try:
+        from freqtrade.AdvancedElliotWaveStrategy import AdvancedElliotWaveStrategy
+
+        mock_config = {
+            'stake_currency': 'USDT',
+            'dry_run': True,
+            'exchange': {'name': 'binance'}
+        }
+
+        strategy = AdvancedElliotWaveStrategy(mock_config)
+        print("✓ AdvancedElliotWaveStrategy instantiated")
+
+        # Check advanced parameters
+        print(f"✓ min_wave_probability: {strategy.min_wave_probability.value}")
+        print(f"✓ min_fibonacci_score: {strategy.min_fibonacci_score.value}")
+        print(f"✓ use_higher_tf: {strategy.use_higher_tf.value}")
+        print(f"✓ use_fibonacci_confluence: {strategy.use_fibonacci_confluence.value}")
+
+        # Check position adjustment enabled
+        if hasattr(strategy, 'position_adjustment_enable'):
+            print(f"✓ position_adjustment_enable: {strategy.position_adjustment_enable}")
+
+        # Check advanced methods exist
+        if hasattr(strategy, 'adjust_trade_position'):
+            print("✓ adjust_trade_position method exists (partial exits)")
+        if hasattr(strategy, 'custom_stoploss'):
+            print("✓ custom_stoploss method exists (dynamic stops)")
+        if hasattr(strategy, 'custom_exit'):
+            print("✓ custom_exit method exists (advanced exits)")
+        if hasattr(strategy, 'confirm_trade_entry'):
+            print("✓ confirm_trade_entry method exists (trade confirmation)")
+
+        # Check plotting helper integration
+        if hasattr(strategy, 'plot_helper'):
+            print("✓ WavePlottingHelper integrated")
+
+        print()
+        return True
+
+    except Exception as e:
+        print(f"✗ Advanced strategy test failed: {e}")
+        import traceback
+        traceback.print_exc()
+        return False
+
+
 def main():
     """Run all tests."""
     print("\n")
@@ -295,6 +412,8 @@ def main():
     results.append(("Indicator Population", test_indicator_population()))
     results.append(("Entry/Exit Logic", test_entry_exit_logic()))
     results.append(("Enhanced Strategy", test_enhanced_strategy()))
+    results.append(("Wave Plotting Helper", test_wave_plotting_helper()))
+    results.append(("Advanced Strategy", test_advanced_strategy()))
 
     # Summary
     print("=" * 70)
