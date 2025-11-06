@@ -52,6 +52,56 @@ The Enhanced Elliott Wave Analyzer is a comprehensive system that:
 
 ---
 
+## 📸 Visual Examples
+
+### Elliott Wave Pattern Detection
+
+![Pattern Detection](assets/pattern_detection.png)
+
+**Features Demonstrated:**
+- Numbered wave labels (1-2-3-4-5) marking each Elliott Wave
+- Probability score: **76.6%** (high confidence pattern)
+- Fibonacci score: **74.7%** (strong Fibonacci relationships)
+- Target levels (T1, T2) shown as green dashed lines
+- Stop loss (invalidation level) shown as red dashed line
+- Quality metrics displayed in bar chart (Probability, Fibonacci Score, Confidence)
+
+### Wave Line Segments
+
+![Wave Line Segments](assets/wave_line_segments.png)
+
+**Features Demonstrated:**
+- Continuous blue line connecting all wave points (1→2→3→4→5)
+- Clear visual progression of the Elliott Wave structure
+- Wave endpoints marked with red/green circles
+- Easy-to-follow wave numbering system
+- Complete wave structure visible at a glance
+
+### Fibonacci Price Targets
+
+![Fibonacci Targets](assets/fibonacci_targets.png)
+
+**Features Demonstrated:**
+- Multiple Fibonacci-based price targets (T1, T2, T3) in green
+- Current price level marked with solid black line
+- Stop loss level clearly indicated in red
+- Target calculation methods annotated (e.g., "1.618x extension")
+- Risk/Reward ratio calculated and displayed
+- Visual representation of potential profit zones
+
+### Historical Wave Labeling
+
+![Historical Labeling](assets/historical_labeling.png)
+
+**Features Demonstrated:**
+- Multiple Elliott Wave patterns detected across the entire dataset
+- **7 patterns** identified with average **70.6% probability**
+- **29 individual wave segments** labeled throughout history
+- Color-coded patterns for easy distinction
+- Complete historical annotation showing all detected wave structures
+
+---
+
 ## 🚀 Quick Start
 
 ### Installation
